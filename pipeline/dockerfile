@@ -1,0 +1,19 @@
+# Base image
+FROM ubuntu:20.04
+
+# Set non-interactive for apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update and install Nginx
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    apt-get clean
+
+# Copy hello.txt from the repository to Nginx's default web directory
+COPY hello.txt /var/www/
+
+# Expose port 80 for web server
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
